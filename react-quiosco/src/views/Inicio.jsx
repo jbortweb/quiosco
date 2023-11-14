@@ -1,10 +1,15 @@
 import Producto from "../components/Producto"
-import{productos} from "../data/productos"
+import{productos as data} from "../data/productos"
+import useQuiosco from "../hooks/useQuiosco"
 
 const Inicio = () => {
+
+  const {categoriaActual} = useQuiosco()
+  const productos = data.filter(producto => producto.categoria_id === categoriaActual.id)
+
   return (
     <>
-    <h1 className="text-4xl font-black mt-5">Inicio</h1>
+    <h1 className="text-4xl font-black mt-5">{categoriaActual.nombre}</h1>
     <p className="text-2xl my-10">
       Elige y personaliza tu pedido.
     </p>
