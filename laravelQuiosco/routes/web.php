@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CategoriaController::class,'index'])->name('index');
+Route::get('/categorias', [CategoriaController::class,'index']);
 
