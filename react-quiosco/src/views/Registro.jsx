@@ -1,7 +1,7 @@
 import { createRef, useState } from 'react'
 import { Link } from "react-router-dom"
-import clienteAxios from '../config/axios'
 import Alerta from '../components/Alerta';
+import { useAuth } from '../hooks/useAuth';
 
 const Registro = () => {
 
@@ -11,6 +11,7 @@ const Registro = () => {
   const passwordConfirmationRef = createRef();
 
   const [errores, setErrores] = useState([])
+  const {register} = useAuth({middleware: 'guest', url:'/'})
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
@@ -21,11 +22,7 @@ const Registro = () => {
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     }
-    try {
-      const respuesta = await clienteAxios.post('/api/registro',datos)
-    } catch (error) {
-      setErrores(Object.values(error.response.data.errors));
-    }
+    register(datos, setErrores)
   }
 
   return (
@@ -33,8 +30,9 @@ const Registro = () => {
       <h1 className="text-4xl font-black">Crea tu cuenta</h1>
       <p>Crea tu cuenta rellenando el formulario</p>
       <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-        <form
+        <form 
           onSubmit={handleSubmit}
+          noValidate
         >
           {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>): null}
           <div className="mb-4">
