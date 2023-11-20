@@ -7,8 +7,13 @@ const Inicio = () => {
 
   const {categoriaActual} = useQuiosco()
 
+  const token = localStorage.getItem('AUTH_TOKEN');
   //Consulta swr
-  const fetcher = () => clienteAxios('/api/productos').then(data=>data.data)
+  const fetcher = () => clienteAxios('/api/productos', {
+    headers:{
+      Authorization: `Bearer ${token}`
+    }
+  }).then(data=>data.data)
   const {data, error, isLoading} = useSWR('/api/productos', fetcher,{
     refreshInterval:1000
   })
@@ -26,6 +31,7 @@ const Inicio = () => {
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
       {productos.map(producto => (
         <Producto
+          botonAgregar={true}
           key={producto.id}
           producto={producto}
         />
