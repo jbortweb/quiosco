@@ -4,8 +4,14 @@ import { formatearDinero } from "./helpers";
 
 function Resumen() {
 
-    const { pedido, total } = useQuiosco();
+    const { pedido, total, handleSubmitNuevaOrden } = useQuiosco();
     const comprobarPedido = () => pedido.length === 0
+
+    const handleSubmit = (e) => {
+       e.preventDefault();
+       handleSubmitNuevaOrden();
+    };
+    
     
 
   return (
@@ -34,7 +40,10 @@ function Resumen() {
         Total: {""}
         {formatearDinero(total)}
       </p>
-      <form className="w-full">
+      <form 
+        onSubmit={handleSubmit}
+        className="w-full"
+      >
         <div className="mt-5">
           <input 
             type="submit"
