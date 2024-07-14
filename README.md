@@ -39,14 +39,9 @@ cd backend
 # Instalar dependencias de PHP
 composer install
 
-# Copiar el archivo de configuración .env y modificar según necesidad
-cp .env.example .env
+# Iniciar el servidor
+php artisan serve
 
-# Generar la clave de la aplicación Laravel
-php artisan key:generate
-
-# Ejecutar las migraciones y opcionalmente sembrar la base de datos
-php artisan migrate --seed
 ```
 ## 📄 Licencia
 
